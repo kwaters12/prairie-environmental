@@ -7,6 +7,7 @@ gem 'forest_liana'
 gem 'devise'
 gem 'rack-cors', :require => 'rack/cors'
 gem 'devise_token_auth'
+gem 'geocoder'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.2.0'
