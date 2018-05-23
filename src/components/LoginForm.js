@@ -1,28 +1,21 @@
 'use strict';
 
 import React, { Component } from 'react';
-import { Text, AsyncStorage } from 'react-native';
+import { Text } from 'react-native';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
-import { emailChanged, passwordChanged, loginUser, setAuthenticatedUser } from '../actions';
+import { emailChanged, passwordChanged, loginUser, checkForAuthenticatedUser } from '../actions';
 import { Card, CardSection, Input, Button, Spinner } from './common';
 
 class LoginForm extends Component {
     componentDidMount() {
-        const { setAuthenticatedUser } = this.props;
+        const { checkForAuthenticatedUser } = this.props;
 
-        AsyncStorage.getItem('@PESStore:user')
+        checkForAuthenticatedUser()
             .then((response) => {
-                const { data, id_token, expiry, client} = JSON.parse(response);
-                let user = data;
-
-                user.id_token = id_token;
-                user.expiry = expiry;
-                user.client = client;
-
-                setAuthenticatedUser(user);
-                
-                Actions.main();
+                if (response.payload) {
+                    Actions.main();
+                }
             });
     }
 
@@ -101,5 +94,5 @@ const mapStateToProps = ({ auth }) => {
 };
 
 export default connect(mapStateToProps, {
-    emailChanged, passwordChanged, loginUser, setAuthenticatedUser
+    emailChanged, passwordChanged, loginUser, checkForAuthenticatedUser
 })(LoginForm);

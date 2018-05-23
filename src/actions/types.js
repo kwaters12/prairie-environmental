@@ -1,0 +1,10 @@
+export const EMAIL_CHANGED = 'email_changed';
+export const PASSWORD_CHANGED = 'password_changed';
+export const LOGIN_USER_SUCCESS = 'login_user_success';
+export const LOGIN_USER_FAIL = 'login_user_fail';
+export const LOGIN_USER = 'login_user';
+export const SET_AUTHENTICATED_USER = 'set_authenticated_user';
+export const WEED_REPORT_UPDATE = 'weed_report_update';
+export const WEED_REPORT_CREATE = 'weed_report_create';
+export const WEED_REPORT_SAVE_SUCCESS = 'weed_report_save_success';
+export const WEED_REPORTS_FETCH_SUCCESS = 'weed_reports_fetch_success';

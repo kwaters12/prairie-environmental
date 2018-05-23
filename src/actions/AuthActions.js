@@ -27,10 +27,20 @@ export const passwordChanged = (text) => {
   };
 };
 
-export const setAuthenticatedUser = (user) => {
-  return {
-    type: SET_AUTHENTICATED_USER,
-    payload: user
+
+export const checkForAuthenticatedUser = () => {
+  return (dispatch) => {
+    return AsyncStorage.getItem('@PESStore:user')
+      .then((response) => {
+        const { data, id_token, expiry, client } = JSON.parse(response);
+        let user = data;
+
+        user.id_token = id_token;
+        user.expiry = expiry;
+        user.client = client;
+
+        return dispatch(setAuthenticatedUser(user));
+      }).catch(err => console.log("Error: ", err))
   }
 }
 
@@ -68,7 +78,6 @@ export const loginUser = ({ email, password }) => {
           return dispatch(loginUserSuccess(user));
         }
       }).catch(err => console.log("Error: ", err))
-
   };
 };
 
@@ -84,3 +93,11 @@ const loginUserSuccess = (dispatch, user) => {
 
   Actions.main();
 };
+
+
+const setAuthenticatedUser = (user) => {
+ return {
+    type: SET_AUTHENTICATED_USER,
+    payload: user
+  };
+}
